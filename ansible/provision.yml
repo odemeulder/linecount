@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  connection: local
+  vars_files:
+    - group_vars/vars.yml
+  become: yes
+  tasks:
+    - name: Add public key to authorized_keys
+      lineinfile:
+        path: /home/vagrant/.ssh/authorized_keys
+        line: "{{ jenkins_public_key }}"
+        create: yes
+    - name: "Install git"
+      yum:
+        name: git
+        state: latest
