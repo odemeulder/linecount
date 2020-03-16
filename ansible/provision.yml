@@ -3,14 +3,35 @@
   connection: local
   vars_files:
     - group_vars/vars.yml
-  become: yes
+  # become: yes
   tasks:
     - name: Add public key to authorized_keys
       lineinfile:
         path: /home/vagrant/.ssh/authorized_keys
         line: "{{ jenkins_public_key }}"
         create: yes
-    - name: "Install git"
+    - name: ensure a list of packages installed
       yum:
-        name: git
-        state: latest
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - git
+        - python3
+    - name: install pip packages
+      pip:
+        name: "{{ pip_packages }}"
+        executable: pip3
+      vars:
+        pip_packages:
+        - boto3
+    - name: "Clone repo"
+      git:
+        repo: 'https://github.com/odemeulder/linecount.git'
+        dest: /home/vagrant/linecount
+    - name: Recursively change ownership of a directory
+      file:
+        path: /home/vagrant/linecount
+        state: directory
+        recurse: yes
+        owner: vagrant
+        group: vagrant

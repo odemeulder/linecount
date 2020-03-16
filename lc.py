@@ -1,5 +1,6 @@
 import os
 import store
+import botocore
 from datetime import date
 
 REPO = "https://github.com/odemeulder/ic"
