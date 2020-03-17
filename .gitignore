@@ -1,4 +1,4 @@
 data/repo/
 __pycache__/
 .vagrant/
-linecount-app/node_modules/
+infra/.terraform/
