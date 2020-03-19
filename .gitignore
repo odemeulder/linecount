@@ -2,3 +2,5 @@ data/repo/
 __pycache__/
 .vagrant/
 infra/.terraform/
+infra/terraform.tfstate
+infra/terraform.tfstate.backup
