@@ -27,7 +27,7 @@ def save(store, store_path = ""):
   content_object = s3client.Object(BUCKET, BUCKET_KEY)
   content_object.put(
     # Body=(bytes(json.dump(store).encode(ENCODING)))
-    Body=json.dump(store)
+    Body=json.dumps(store)
   )
 
 

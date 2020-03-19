@@ -1,15 +1,10 @@
 ---
-- hosts: localhost
-  connection: local
+- hosts: all
+  user: centos
   vars_files:
     - group_vars/vars.yml
-  # become: yes
+  become: yes
   tasks:
-    - name: Add public key to authorized_keys
-      lineinfile:
-        path: /home/vagrant/.ssh/authorized_keys
-        line: "{{ jenkins_public_key }}"
-        create: yes
     - name: ensure a list of packages installed
       yum:
         name: "{{ packages }}"
@@ -24,22 +19,23 @@
       vars:
         pip_packages:
         - boto3
+    - name: Ensure group "linecountrunner" exists
+      group:
+        name: linecountrunner
+        state: present
+    - name: Ensure user "linecountrunner" exists
+      user:
+        name: linecountrunner
+        state: present
+        group: linecountrunner
     - name: "Clone repo"
       git:
         repo: 'https://github.com/odemeulder/linecount.git'
-        dest: /home/vagrant/linecount
-    # - name: "Git Config"
-    #   git_config:
-    #     - name: user.email
-    #       scope: global
-    #       value: 'odemeulder@gmail.com'
-    #     - name: user.name
-    #       scope: global
-    #       value: 'Olivier'
+        dest: /home/linecount
     - name: Recursively change ownership of a directory
       file:
-        path: /home/vagrant/linecount
+        path: /home/linecount
         state: directory
         recurse: yes
-        owner: vagrant
-        group: vagrant
+        owner: linecountrunner
+        group: linecountrunner

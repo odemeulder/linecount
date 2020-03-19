@@ -4,3 +4,5 @@ __pycache__/
 infra/.terraform/
 infra/terraform.tfstate
 infra/terraform.tfstate.backup
+
+ansible/provision.retry
