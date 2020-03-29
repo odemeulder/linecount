@@ -14,7 +14,7 @@ resource "aws_s3_bucket" "linecount_bucket" {
 
   cors_rule {
     allowed_headers = ["*"]
-    allowed_methods = ["GET"]
+    allowed_methods = ["GET", "HEAD"]
     allowed_origins = ["*"]
     expose_headers  = ["ETag"]
     max_age_seconds = 3000
@@ -66,7 +66,7 @@ resource "aws_iam_role_policy" "linecount_policy" {
         "s3:PutObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::odm-linecount"
+      "Resource": "arn:aws:s3:::odm-linecount/*"
     }
   ]
 }

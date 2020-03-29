@@ -32,11 +32,6 @@ def line_count_in_dir(dname):
 def pull_repo():
   os.system(f"if cd {REPO_DIR}; then git pull; else git clone {REPO} {REPO_DIR}; fi")
 
-# def update_store(date, value):
-#   s = store.load()
-#   store.update(s, str(date), value)
-#   store.save(s)
-
 pull_repo()
 lc = line_count_in_dir(REPO_DIR)
 store.update(date.today(), lc)
