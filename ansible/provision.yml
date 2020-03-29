@@ -1,8 +1,6 @@
 ---
 - hosts: all
   user: centos
-  vars_files:
-    - group_vars/vars.yml
   become: yes
   tasks:
     - name: ensure a list of packages installed
@@ -19,7 +17,7 @@
       vars:
         pip_packages:
         - boto3
-    - name: Ensure group "linecountrunner" exists
+    - name: Ensure group and user "linecountrunner" exists
       group:
         name: linecountrunner
         state: present
@@ -30,12 +28,32 @@
         group: linecountrunner
     - name: "Clone repo"
       git:
-        repo: 'https://github.com/odemeulder/linecount.git'
+        repo: "{{ linecount_repo }}"
         dest: /home/linecount
-    - name: Recursively change ownership of a directory
+    - name: create needed folders
       file:
         path: /home/linecount
         state: directory
         recurse: yes
         owner: linecountrunner
         group: linecountrunner
+    - name: create .ssh folder
+      file:
+        path: /home/linecountrunner/.ssh
+        state: directory
+        owner: linecountrunner
+        group: linecountrunner
+    - name: copy ssh key
+      template: 
+        src: id_rsa.j2 
+        dest: "/home/linecountrunner/.ssh/id_rsa"
+        owner: linecountrunner
+        group: linecountrunner
+        mode: '0600'
+    - name: Copy file with owner and permissions
+      copy:
+        src: files/ssh_config
+        dest: /home/linecountrunner/.ssh/config
+        owner: linecountrunner
+        group: linecountrunner
+        mode: '0400'

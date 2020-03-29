@@ -3,7 +3,7 @@ import store
 import botocore
 from datetime import date
 
-REPO = "https://github.com/odemeulder/ic"
+REPO = "git@github.com:odemeulder/ic.git"
 REPO_DIR = "./data/repo"
 
 def line_count_in_file(fname):

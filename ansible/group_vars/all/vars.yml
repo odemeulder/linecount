@@ -1,0 +1,4 @@
+---
+linecount_repo: https://github.com/odemeulder/linecount.git
+
+github_key: "{{ vault_github_key }}"

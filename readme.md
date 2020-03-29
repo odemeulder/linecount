@@ -22,8 +22,12 @@ Output is the public IP of the instance.
 
 To stand up the infrastructure:
 ```bash
+cd infra
 ~/terraform plan
 ~/terraform apply
+
+# get ip output
+~/terraform output -json instance_ips | jq '.[0][0]'
 
 # when done, destroy
 ~/terraform destroy
@@ -42,6 +46,6 @@ The server provisioning is defined in `/ansible/provision.yml`.
 
 To run provisioning, use the following command:
 ```bash
-ansible-playbook -i xxx.xxx.xxx.xxx, ansible/provision.yml
+ansible-playbook --vault-password-file .secret -i xxx.xxx.xxx.xxx, ansible/provision.yml
 ```
 Note: use the IP that was the output of  `~/terraform apply`.
