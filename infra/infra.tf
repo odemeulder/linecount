@@ -24,6 +24,7 @@ resource "aws_s3_bucket" "linecount_bucket" {
     Application = "linecount"
     Environment = "prd"
   }
+
 }
 
 resource "aws_iam_role" "linecount_role" {

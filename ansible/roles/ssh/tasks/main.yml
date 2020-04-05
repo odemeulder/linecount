@@ -1,0 +1,21 @@
+---
+- name: create .ssh folder
+  file:
+    path: "/home/{{ run_as }}/.ssh"
+    state: directory
+    owner: "{{ run_as }}"
+    group: "{{ run_as }}"
+- name: copy ssh key
+  template: 
+    src: id_rsa.j2 
+    dest: "/home/{{ run_as }}/.ssh/id_rsa"
+    owner: "{{ run_as }}"
+    group: "{{ run_as }}"
+    mode: '0600'
+- name: Copy config file with owner and permissions
+  copy:
+    src: files/ssh_config
+    dest: "/home/{{ run_as }}/.ssh/config"
+    owner: "{{ run_as }}"
+    group: "{{ run_as }}"
+    mode: '0400'

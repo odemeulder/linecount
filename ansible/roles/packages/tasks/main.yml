@@ -1,0 +1,15 @@
+---
+- name: ensure a list of packages installed
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - git
+    - python3
+- name: install pip packages
+  pip:
+    name: "{{ pip_packages }}"
+    executable: pip3
+  vars:
+    pip_packages:
+    - boto3

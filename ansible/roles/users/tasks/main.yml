@@ -1,0 +1,10 @@
+---
+- name: Ensure group exists
+  group:
+    name: "{{ run_as_group }}"
+    state: present
+- name: Ensure user exists
+  user:
+    name: "{{ run_as }}"
+    state: present
+    group: "{{ run_as_group }}"

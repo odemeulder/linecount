@@ -2,58 +2,9 @@
 - hosts: all
   user: centos
   become: yes
-  tasks:
-    - name: ensure a list of packages installed
-      yum:
-        name: "{{ packages }}"
-      vars:
-        packages:
-        - git
-        - python3
-    - name: install pip packages
-      pip:
-        name: "{{ pip_packages }}"
-        executable: pip3
-      vars:
-        pip_packages:
-        - boto3
-    - name: Ensure group and user "linecountrunner" exists
-      group:
-        name: linecountrunner
-        state: present
-    - name: Ensure user "linecountrunner" exists
-      user:
-        name: linecountrunner
-        state: present
-        group: linecountrunner
-    - name: "Clone repo"
-      git:
-        repo: "{{ linecount_repo }}"
-        dest: /home/linecount
-    - name: create needed folders
-      file:
-        path: /home/linecount
-        state: directory
-        recurse: yes
-        owner: linecountrunner
-        group: linecountrunner
-    - name: create .ssh folder
-      file:
-        path: /home/linecountrunner/.ssh
-        state: directory
-        owner: linecountrunner
-        group: linecountrunner
-    - name: copy ssh key
-      template: 
-        src: id_rsa.j2 
-        dest: "/home/linecountrunner/.ssh/id_rsa"
-        owner: linecountrunner
-        group: linecountrunner
-        mode: '0600'
-    - name: Copy file with owner and permissions
-      copy:
-        src: files/ssh_config
-        dest: /home/linecountrunner/.ssh/config
-        owner: linecountrunner
-        group: linecountrunner
-        mode: '0400'
+  roles:
+    - packages
+    - users
+    - git
+    - ssh
+    - jobs

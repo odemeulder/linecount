@@ -1,0 +1,8 @@
+---
+- name: Linecount Job
+  cron:
+    name: "linecount cron"
+    job: python3 /home/linecount/lc.py
+    user: "{{ run_as }}"
+    hour: "10"
+    

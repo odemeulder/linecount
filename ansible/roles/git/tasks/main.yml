@@ -1,0 +1,12 @@
+---
+- name: "Clone repo"
+  git:
+    repo: "{{ linecount_repo }}"
+    dest: /home/linecount
+- name: update credentials of linecount directory
+  file:
+    path: /home/linecount
+    state: directory
+    recurse: yes
+    owner: "{{ run_as }}"
+    group: "{{ run_as }}"

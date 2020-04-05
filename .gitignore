@@ -1,6 +1,7 @@
 data/repo/
 __pycache__/
 .vagrant/
+.vscode/
 .secret
 infra/.terraform/
 infra/terraform.tfstate
