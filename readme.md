@@ -47,6 +47,13 @@ The server provisioning is defined in `/ansible/provision.yml`.
 To run provisioning, use the following command:
 ```bash
 ansible-playbook --vault-password-file .secret -i xxx.xxx.xxx.xxx, ansible/provision.yml
+# or
+ansible-playbook --vault-password $(pwd)/../.secret -i $(~/terraform output -json instance_ips | jq -r '.[0][0]'), $(pwd)/../ansible/provision.yml
+```
+
+To ssh into the server
+```bash
+ssh centos@$(~/terraform output -json instance_ips | jq -r '.[0][0]')
 ```
 Note: use the IP that was the output of  `~/terraform apply`.
 

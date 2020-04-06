@@ -6,6 +6,8 @@
     packages:
     - git
     - python3
+    - epel-release
+    - nginx
 - name: install pip packages
   pip:
     name: "{{ pip_packages }}"

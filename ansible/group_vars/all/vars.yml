@@ -1,6 +1,8 @@
 ---
 linecount_repo: https://github.com/odemeulder/linecount.git
 
+web_directory: /var/www/lc
+
 run_as: lcrunner
 run_as_group: lcrunner
 
