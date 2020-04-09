@@ -8,6 +8,8 @@
     - python3
     - epel-release
     - nginx
+    - docker
+
 - name: install pip packages
   pip:
     name: "{{ pip_packages }}"
@@ -15,3 +17,9 @@
   vars:
     pip_packages:
     - boto3
+
+- name: Ensure docker deamon is running
+  service:
+    name: docker
+    state: started
+  become: true

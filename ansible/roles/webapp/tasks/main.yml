@@ -1,0 +1,23 @@
+---
+- name: Download webapp repo
+  git:
+    repo: "{{ linecount_app_repo }}"
+    dest: "{{ lc_app_folder }}"
+    update: yes
+
+- name: Build image 
+  shell: docker build -t odemeulder/linecount-app .
+  args: 
+    chdir: "{{ lc_app_folder }}"
+
+- name: Run container
+  shell: docker run -v $(pwd)/build:/usr/src/app/build odemeulder/linecount-app
+  args: 
+    chdir: "{{ lc_app_folder }}"
+
+- name: Copy build to live directory
+  command: cp -TRv build {{ web_directory }}
+  args:
+    chdir: "{{ lc_app_folder }}"
+  notify:
+    - restart nginx    

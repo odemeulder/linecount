@@ -11,9 +11,10 @@
   file:
     path: "{{ web_directory }}"
     state: directory
-- name: Index.html
-  copy:
-    src: index.html
-    dest: "{{ web_directory }}/index.html"
-  notify:
-    - restart nginx
+
+# - name: Index.html
+#   copy:
+#     src: index.html
+#     dest: "{{ web_directory }}/index.html"
+#   notify:
+#     - restart nginx

@@ -1,7 +1,9 @@
 ---
 linecount_repo: https://github.com/odemeulder/linecount.git
+linecount_app_repo: https://github.com/odemeulder/linecount-app.git
 
 web_directory: /var/www/lc
+lc_app_folder: /home/linecount-app
 
 run_as: lcrunner
 run_as_group: lcrunner
